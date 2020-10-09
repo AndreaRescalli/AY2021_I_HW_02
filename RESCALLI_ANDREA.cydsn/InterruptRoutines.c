@@ -7,9 +7,13 @@
  * CONFIDENTIAL AND PROPRIETARY INFORMATION
  * WHICH IS THE PROPERTY OF LTEBS srl.
  *
+ * \file  InterruptRoutines.c
+ * \brief Source file with ISR bodies for the Assignment_2
  *
- * \author Andrea Rescalli
- * \brief  Code file for the ISR
+ * Sets the behaviour of an (external) RGB LED based on the press of a button
+ *
+ * \author: Andrea Rescalli
+ * \date:   13/10/2020 
  *
  * ========================================
 */
@@ -17,16 +21,27 @@
 // Include ISR header
 #include "InterruptRoutines.h"
 
-// Include required header files
-#include "Timer_LED.h"
+uint8 counter_timer;
+uint8 counter_push;
 
-CY_ISR(Custom_Timer_ISR) {
+CY_ISR(Custom_ISR_Timer_LED) {
 
     // Read timer status register to bring interrupt line low
     Timer_LED_ReadStatusRegister();
     
-    // Count
+    // Count every 250 ms
     counter_timer++;
+
+}
+
+CY_ISR(Custom_ISR_Push) {
+
+    /* No need to clear any interrupt source:
+     * interrupt component is configured for RISING_EDGE mode.
+    */
+    
+    // Increment the push counter
+    counter_push++;
 
 }
 
