@@ -9,7 +9,7 @@
  *
  *
  * \author Andrea Rescalli
- * \brief  Header file for the interrupt routines
+ * \brief  Header file for the ISR
  *
  * ========================================
 */
