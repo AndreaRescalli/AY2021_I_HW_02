@@ -22,7 +22,7 @@
 #include "InterruptRoutines.h"
 
 uint8 counter_timer;
-uint8 counter_push;
+uint8 flag_push;
 
 CY_ISR(Custom_ISR_Timer_LED) {
 
@@ -41,7 +41,7 @@ CY_ISR(Custom_ISR_Push) {
     */
     
     // Increment the push counter
-    counter_push++;
+    flag_push = 1;
 
 }
 
