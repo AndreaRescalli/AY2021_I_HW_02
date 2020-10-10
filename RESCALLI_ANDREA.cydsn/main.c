@@ -49,7 +49,7 @@
 #define STATE_7 7
 
 
-// Set globals
+// Defining globals
 uint8 counter_timer = 0; // keeps track of how many 250ms have passed
 uint8 flag_push = 0;     // initialize the flag for the push of the button to 0
 uint8 counter_push = 1;  // keeps track of how many times the button has been pushed
