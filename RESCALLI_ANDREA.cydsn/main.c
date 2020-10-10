@@ -73,12 +73,6 @@ int main(void) {
              *
             */
             
-            // Reset of the timer
-            Timer_LED_Stop();
-            Timer_LED_WriteCounter(249);
-            Timer_LED_Enable();
-            counter_timer = 0; // reset of the timer-tracking variable
-            
             /* Check the LEDs; if they're OFF turn them ON
              * (Useless in the first cycle, since the code switches them ON at the 
              * beginning, and this is the first state, but it will be useful for the
@@ -86,12 +80,18 @@ int main(void) {
              * situation)
              * 
             */
-            if (!Red_LED_Read()) {
+            if (Red_LED_Read() == OFF) {
                 Red_LED_Write(ON);
             }
-            if (!Green_LED_Read()) {
+            if (Green_LED_Read() == OFF) {
                 Green_LED_Write(ON);
             }
+            
+            // Reset of the timer
+            Timer_LED_Stop();
+            Timer_LED_WriteCounter(249);
+            Timer_LED_Enable();
+            counter_timer = 0; // reset of the timer-tracking variable
             
             while (state == STATE_1) {
                 
@@ -120,19 +120,19 @@ int main(void) {
              *
             */    
             
+            // Check the LEDs; if they're OFF turn them ON
+            if (Red_LED_Read() == OFF) {
+                Red_LED_Write(ON);
+            }
+            if (Green_LED_Read() == OFF) {
+                Green_LED_Write(ON);
+            }
+            
             // Reset of the timer
             Timer_LED_Stop();
             Timer_LED_WriteCounter(249);
             Timer_LED_Enable();
             counter_timer = 0; // reset of the timer-tracking variable
-            
-            // Check the LEDs; if they're OFF turn them ON
-            if (!Red_LED_Read()) {
-                Red_LED_Write(ON);
-            }
-            if (!Green_LED_Read()) {
-                Green_LED_Write(ON);
-            }
 
             while (state == STATE_2) {
                 
@@ -161,19 +161,19 @@ int main(void) {
              *
             */    
             
+            // Check the LEDs
+            if (Red_LED_Read() == ON) {
+                Red_LED_Write(OFF); // If RED is ON, switch it OFF
+            }
+            if (Green_LED_Read() == OFF) {
+                Green_LED_Write(ON); // If GREEN is OFF, switch it ON
+            }
+            
             // Reset of the timer
             Timer_LED_Stop();
             Timer_LED_WriteCounter(249);
             Timer_LED_Enable();
             counter_timer = 0; // reset of the timer-tracking variable
-            
-            // Check the LEDs
-            if (Red_LED_Read()) {
-                Red_LED_Write(OFF); // If RED is ON, switch it OFF
-            }
-            if (!Green_LED_Read()) {
-                Green_LED_Write(ON); // If GREEN is OFF, switch it ON
-            }
 
             while (state == STATE_3) {
 
@@ -202,19 +202,19 @@ int main(void) {
              *
             */    
             
+            // Check the LEDs
+            if (Red_LED_Read() == OFF) {
+                Red_LED_Write(ON); // If RED is OFF, switch it ON
+            }
+            if (Green_LED_Read() == ON) {
+                Green_LED_Write(OFF); // If GREEN is ON, switch it OFF
+            }
+            
             // Reset of the timer
             Timer_LED_Stop();
             Timer_LED_WriteCounter(249);
             Timer_LED_Enable();
             counter_timer = 0; // reset of the timer-tracking variable
-            
-            // Check the LEDs
-            if (!Red_LED_Read()) {
-                Red_LED_Write(ON); // If RED is OFF, switch it ON
-            }
-            if (Green_LED_Read()) {
-                Green_LED_Write(OFF); // If GREEN is ON, switch it OFF
-            }
 
             while (state == STATE_4) {
                 
@@ -243,20 +243,20 @@ int main(void) {
              * - GREEN opposite of RED
              *
             */    
+                        
+            // Check the LEDs
+            if (Red_LED_Read() == ON) {
+                Red_LED_Write(OFF); // If RED is ON, switch it OFF
+            }
+            if (Green_LED_Read() == OFF) {
+                Green_LED_Write(ON); // If GREEN is OFF, switch it ON
+            }
             
             // Reset of the timer
             Timer_LED_Stop();
             Timer_LED_WriteCounter(249);
             Timer_LED_Enable();
             counter_timer = 0; // reset of the timer-tracking variable
-            
-            // Check the LEDs
-            if (Red_LED_Read()) {
-                Red_LED_Write(OFF); // If RED is ON, switch it OFF
-            }
-            if (!Green_LED_Read()) {
-                Green_LED_Write(ON); // If GREEN is OFF, switch it ON
-            }
 
             while (state == STATE_5) {
                 
@@ -285,20 +285,20 @@ int main(void) {
              * - GREEN ON for initial 50%
              *
             */    
+                        
+            // Check the LEDs
+            if (Red_LED_Read() == OFF) {
+                Red_LED_Write(ON); // If RED is OFF, switch it ON
+            }
+            if (Green_LED_Read() == OFF) {
+                Green_LED_Write(ON); // If GREEN is OFF, switch it ON
+            }
             
             // Reset of the timer
             Timer_LED_Stop();
             Timer_LED_WriteCounter(249);
             Timer_LED_Enable();
             counter_timer = 0; // reset of the timer-tracking variable
-            
-            // Check the LEDs
-            if (!Red_LED_Read()) {
-                Red_LED_Write(ON); // If RED is OFF, switch it ON
-            }
-            if (!Green_LED_Read()) {
-                Green_LED_Write(ON); // If GREEN is OFF, switch it ON
-            }
 
             while (state == STATE_6) {
 
@@ -343,21 +343,21 @@ int main(void) {
              * - GREEN ON for initial 25%
              *
             */    
+                        
+            // Check the LEDs
+            if (Red_LED_Read() == ON) {
+                Red_LED_Write(OFF); // If RED is ON, switch it OFF
+            }
+            if (Green_LED_Read() == OFF) {
+                Green_LED_Write(ON); // If GREEN is OFF, switch it ON
+            }
             
             // Reset of the timer
             Timer_LED_Stop();
             Timer_LED_WriteCounter(249);
             Timer_LED_Enable();
             counter_timer = 0; // reset of the timer-tracking variable
-            x = 0;             // reset helping variable
-            
-            // Check the LEDs
-            if (Red_LED_Read()) {
-                Red_LED_Write(OFF); // If RED is ON, switch it OFF
-            }
-            if (!Green_LED_Read()) {
-                Green_LED_Write(ON); // If GREEN is OFF, switch it ON
-            }
+            x = 0;             // reset of helping variable
 
             while (state == STATE_7) {
                 
@@ -380,14 +380,15 @@ int main(void) {
                     counter_push++;
                 }
                 
-                state = counter_push;
-                if (counter_push >= 8) {
-                    counter_push = 1;
-                }
+                state = counter_push;                
             }
         
         } // end STATE_7
         
+        if (counter_push >= 8) {
+            counter_push = 1;
+            state = counter_push;
+        }
         
     } // end for loop
     

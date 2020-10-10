@@ -42,6 +42,8 @@ CY_ISR(Custom_ISR_Push) {
     
     // Increment the push counter
     flag_push = 1;
+    //Red_LED_Write(!Red_LED_Read());
+    //Green_LED_Write(!Green_LED_Read());
 
 }
 
