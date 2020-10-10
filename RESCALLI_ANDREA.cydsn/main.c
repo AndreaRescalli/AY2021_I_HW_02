@@ -21,6 +21,7 @@
 // Include header(s)
 #include "project.h"
 #include "InterruptRoutines.h"
+#include "user_functions.h"
 
 // Utility defines
 #define HIGH 1
@@ -29,8 +30,8 @@
 /* 
  * RGB is in common anode, and to switch a channel of the RGB ON we have to set the
  * corresponding PIN to 0!
- * THIS IS A ASSUMPTION, THE OPPOSITE BEHAVIOUR CAN BE OBTAINED BY SIMPLY SETTING
- * ON HIGH AND OFF LOW (from the instruction it was not clear if it was requested the
+ * THIS IS AN ASSUMPTION, THE OPPOSITE BEHAVIOUR CAN BE OBTAINED BY SIMPLY SETTING
+ * ON HIGH AND OFF LOW (from the instructions it was not clear if it was requested the
  * respective LED to be ON when the signal was HIGH - and I opted for this hypothesis
  * or if the diagram showed the tension of the respective PINs, meaning that the LED
  * had to be OFF when the signal was HIGH)
@@ -71,7 +72,6 @@ int main(void) {
     Green_LED_Write(ON);
     
     
-    
     for(;;) {
         
         if (state == STATE_1) {
@@ -98,10 +98,7 @@ int main(void) {
             }
             
             // Reset the timer
-            Timer_LED_Stop();
-            Timer_LED_WriteCounter(249);
-            Timer_LED_Enable();
-            counter_timer = 0; // reset the timer-tracking variable
+            reset_timer();
             
             while (state == STATE_1) {
                 
@@ -139,10 +136,7 @@ int main(void) {
             }
             
             // Reset the timer
-            Timer_LED_Stop();
-            Timer_LED_WriteCounter(249);
-            Timer_LED_Enable();
-            counter_timer = 0; // reset the timer-tracking variable
+            reset_timer();
 
             while (state == STATE_2) {
                 
@@ -180,10 +174,7 @@ int main(void) {
             }
             
             // Reset the timer
-            Timer_LED_Stop();
-            Timer_LED_WriteCounter(249);
-            Timer_LED_Enable();
-            counter_timer = 0; // reset the timer-tracking variable
+            reset_timer();
 
             while (state == STATE_3) {
 
@@ -221,10 +212,7 @@ int main(void) {
             }
             
             // Reset the timer
-            Timer_LED_Stop();
-            Timer_LED_WriteCounter(249);
-            Timer_LED_Enable();
-            counter_timer = 0; // reset the timer-tracking variable
+            reset_timer();
 
             while (state == STATE_4) {
                 
@@ -263,10 +251,7 @@ int main(void) {
             }
             
             // Reset the timer
-            Timer_LED_Stop();
-            Timer_LED_WriteCounter(249);
-            Timer_LED_Enable();
-            counter_timer = 0; // reset the timer-tracking variable
+            reset_timer();
 
             while (state == STATE_5) {
                 
@@ -305,10 +290,7 @@ int main(void) {
             }
             
             // Reset the timer
-            Timer_LED_Stop();
-            Timer_LED_WriteCounter(249);
-            Timer_LED_Enable();
-            counter_timer = 0; // reset the timer-tracking variable
+            reset_timer();
             x = 0;             // reset the auxiliary variable
 
             while (state == STATE_6) {
@@ -364,10 +346,7 @@ int main(void) {
             }
             
             // Reset the timer
-            Timer_LED_Stop();
-            Timer_LED_WriteCounter(249);
-            Timer_LED_Enable();
-            counter_timer = 0; // reset the timer-tracking variable
+            reset_timer();
             x = 0;             // reset the auxiliary variable
 
             while (state == STATE_7) {
