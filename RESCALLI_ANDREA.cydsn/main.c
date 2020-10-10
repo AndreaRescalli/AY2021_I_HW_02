@@ -26,8 +26,16 @@
 #define HIGH 1
 #define LOW  0
 
-// RGB is in common anode, and to switch a channel ON we have to set the
-// corresponding PIN to 0!
+/* 
+ * RGB is in common anode, and to switch a channel of the RGB ON we have to set the
+ * corresponding PIN to 0!
+ * THIS IS A ASSUMPTION, THE OPPOSITE BEHAVIOUR CAN BE OBTAINED BY SIMPLY SETTING
+ * ON HIGH AND OFF LOW (from the instruction it was not clear if it was requested the
+ * respective LED to be ON when the signal was HIGH - and I opted for this hypothesis
+ * or if the diagram showed the tension of the respective PINs, meaning that the LED
+ * had to be OFF when the signal was HIGH)
+ *
+*/
 #define ON  LOW
 #define OFF HIGH
 
@@ -45,14 +53,15 @@
 uint8 counter_timer = 0; // keeps track of how many 250ms have passed
 uint8 flag_push = 0;     // initialize the flag for the push of the button to 0
 uint8 counter_push = 1;  // keeps track of how many times the button has been pushed
-uint8 state = STATE_1;   // keeps track of the state we're in
+uint8 state = STATE_1;   // keeps track of the state we're in. Initialized at STATE_1
 uint8 x = 0;             // helps counter_timer in STATE_6 and STATE_7
 
 
 int main(void) {
 
     CyGlobalIntEnable; /* Enable global interrupts. */
-
+    
+    // Initialization of timer and ISR
     Timer_LED_Start();
     ISR_Timer_LED_StartEx(Custom_ISR_Timer_LED);
     ISR_Push_StartEx(Custom_ISR_Push);
@@ -73,7 +82,8 @@ int main(void) {
              *
             */
             
-            /* Check the LEDs; if they're OFF turn them ON
+            /* 
+             * Check the LEDs; if they're OFF turn them ON
              * (Useless in the first cycle, since the code switches them ON at the 
              * beginning, and this is the first state, but it will be useful for the
              * following cycles, if we press the button from 7 to 1 in an intermediate
@@ -87,11 +97,11 @@ int main(void) {
                 Green_LED_Write(ON);
             }
             
-            // Reset of the timer
+            // Reset the timer
             Timer_LED_Stop();
             Timer_LED_WriteCounter(249);
             Timer_LED_Enable();
-            counter_timer = 0; // reset of the timer-tracking variable
+            counter_timer = 0; // reset the timer-tracking variable
             
             while (state == STATE_1) {
                 
@@ -128,11 +138,11 @@ int main(void) {
                 Green_LED_Write(ON);
             }
             
-            // Reset of the timer
+            // Reset the timer
             Timer_LED_Stop();
             Timer_LED_WriteCounter(249);
             Timer_LED_Enable();
-            counter_timer = 0; // reset of the timer-tracking variable
+            counter_timer = 0; // reset the timer-tracking variable
 
             while (state == STATE_2) {
                 
@@ -169,11 +179,11 @@ int main(void) {
                 Green_LED_Write(ON); // If GREEN is OFF, switch it ON
             }
             
-            // Reset of the timer
+            // Reset the timer
             Timer_LED_Stop();
             Timer_LED_WriteCounter(249);
             Timer_LED_Enable();
-            counter_timer = 0; // reset of the timer-tracking variable
+            counter_timer = 0; // reset the timer-tracking variable
 
             while (state == STATE_3) {
 
@@ -210,11 +220,11 @@ int main(void) {
                 Green_LED_Write(OFF); // If GREEN is ON, switch it OFF
             }
             
-            // Reset of the timer
+            // Reset the timer
             Timer_LED_Stop();
             Timer_LED_WriteCounter(249);
             Timer_LED_Enable();
-            counter_timer = 0; // reset of the timer-tracking variable
+            counter_timer = 0; // reset the timer-tracking variable
 
             while (state == STATE_4) {
                 
@@ -252,11 +262,11 @@ int main(void) {
                 Green_LED_Write(ON); // If GREEN is OFF, switch it ON
             }
             
-            // Reset of the timer
+            // Reset the timer
             Timer_LED_Stop();
             Timer_LED_WriteCounter(249);
             Timer_LED_Enable();
-            counter_timer = 0; // reset of the timer-tracking variable
+            counter_timer = 0; // reset the timer-tracking variable
 
             while (state == STATE_5) {
                 
@@ -294,11 +304,12 @@ int main(void) {
                 Green_LED_Write(ON); // If GREEN is OFF, switch it ON
             }
             
-            // Reset of the timer
+            // Reset the timer
             Timer_LED_Stop();
             Timer_LED_WriteCounter(249);
             Timer_LED_Enable();
-            counter_timer = 0; // reset of the timer-tracking variable
+            counter_timer = 0; // reset the timer-tracking variable
+            x = 0;             // reset the auxiliary variable
 
             while (state == STATE_6) {
 
@@ -319,7 +330,7 @@ int main(void) {
                         // 2s have passed --> toggle both
                         Red_LED_Write(!Red_LED_Read());
                         Green_LED_Write(!Green_LED_Read());
-                        x = 0; // reset helping variable
+                        x = 0; // reset auxiliary variable
                     }
                     
                     counter_timer = 0; // reset timer-tracking variable
@@ -352,12 +363,12 @@ int main(void) {
                 Green_LED_Write(ON); // If GREEN is OFF, switch it ON
             }
             
-            // Reset of the timer
+            // Reset the timer
             Timer_LED_Stop();
             Timer_LED_WriteCounter(249);
             Timer_LED_Enable();
-            counter_timer = 0; // reset of the timer-tracking variable
-            x = 0;             // reset of helping variable
+            counter_timer = 0; // reset the timer-tracking variable
+            x = 0;             // reset the auxiliary variable
 
             while (state == STATE_7) {
                 
@@ -370,7 +381,7 @@ int main(void) {
                     // RED toggles each second, so with a frequency half of GREEN
                     if (x == 2) {
                         Red_LED_Write(!Red_LED_Read());
-                        x = 0; // reset helping variable
+                        x = 0; // reset auxiliary variable
                     }
                 }
                 

@@ -38,12 +38,13 @@ CY_ISR(Custom_ISR_Push) {
 
     /* No need to clear any interrupt source:
      * interrupt component is configured for RISING_EDGE mode.
+     * PLEASE NOTE THAT AN INTERRUPT IS GENERATED, ONCE, AT THE PUSH OF THE BUTTON
+     * So, even if we keep the button pressed, the sequence will be incremented
+     * just by one step at the moment we first press the button.
     */
     
-    // Increment the push counter
+    // Set the flag that tells the main code the button has been pressed
     flag_push = 1;
-    //Red_LED_Write(!Red_LED_Read());
-    //Green_LED_Write(!Green_LED_Read());
 
 }
 
