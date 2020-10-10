@@ -23,6 +23,10 @@
     
     #include "Timer_LED.h"
     
+    // Declaration of globals that will be used by the ISRs
+    extern uint8 counter_timer;
+    extern uint8 flag_push;
+    
     CY_ISR_PROTO(Custom_ISR_Timer_LED);
     CY_ISR_PROTO(Custom_ISR_Push);
     

@@ -21,9 +21,6 @@
 // Include ISR header
 #include "InterruptRoutines.h"
 
-uint8 counter_timer;
-uint8 flag_push;
-
 CY_ISR(Custom_ISR_Timer_LED) {
 
     // Read timer status register to bring interrupt line low

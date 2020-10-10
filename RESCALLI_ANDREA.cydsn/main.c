@@ -21,6 +21,7 @@
 // Include header(s)
 #include "project.h"
 #include "InterruptRoutines.h"
+#include "user_functions.h"
 
 // Utility defines
 #define HIGH 1
@@ -49,7 +50,7 @@
 #define STATE_7 7
 
 
-// Set globals
+// Defining globals
 uint8 counter_timer = 0; // keeps track of how many 250ms have passed
 uint8 flag_push = 0;     // initialize the flag for the push of the button to 0
 uint8 counter_push = 1;  // keeps track of how many times the button has been pushed
@@ -69,7 +70,6 @@ int main(void) {
     // Initialization: turn LEDs ON since we have to be in STATE_1
     Red_LED_Write(ON);
     Green_LED_Write(ON);
-    
     
     
     for(;;) {
@@ -98,10 +98,7 @@ int main(void) {
             }
             
             // Reset the timer
-            Timer_LED_Stop();
-            Timer_LED_WriteCounter(249);
-            Timer_LED_Enable();
-            counter_timer = 0; // reset the timer-tracking variable
+            reset_timer();
             
             while (state == STATE_1) {
                 
@@ -139,10 +136,7 @@ int main(void) {
             }
             
             // Reset the timer
-            Timer_LED_Stop();
-            Timer_LED_WriteCounter(249);
-            Timer_LED_Enable();
-            counter_timer = 0; // reset the timer-tracking variable
+            reset_timer();
 
             while (state == STATE_2) {
                 
@@ -180,10 +174,7 @@ int main(void) {
             }
             
             // Reset the timer
-            Timer_LED_Stop();
-            Timer_LED_WriteCounter(249);
-            Timer_LED_Enable();
-            counter_timer = 0; // reset the timer-tracking variable
+            reset_timer();
 
             while (state == STATE_3) {
 
@@ -221,10 +212,7 @@ int main(void) {
             }
             
             // Reset the timer
-            Timer_LED_Stop();
-            Timer_LED_WriteCounter(249);
-            Timer_LED_Enable();
-            counter_timer = 0; // reset the timer-tracking variable
+            reset_timer();
 
             while (state == STATE_4) {
                 
@@ -263,10 +251,7 @@ int main(void) {
             }
             
             // Reset the timer
-            Timer_LED_Stop();
-            Timer_LED_WriteCounter(249);
-            Timer_LED_Enable();
-            counter_timer = 0; // reset the timer-tracking variable
+            reset_timer();
 
             while (state == STATE_5) {
                 
@@ -305,10 +290,7 @@ int main(void) {
             }
             
             // Reset the timer
-            Timer_LED_Stop();
-            Timer_LED_WriteCounter(249);
-            Timer_LED_Enable();
-            counter_timer = 0; // reset the timer-tracking variable
+            reset_timer();
             x = 0;             // reset the auxiliary variable
 
             while (state == STATE_6) {
@@ -364,10 +346,7 @@ int main(void) {
             }
             
             // Reset the timer
-            Timer_LED_Stop();
-            Timer_LED_WriteCounter(249);
-            Timer_LED_Enable();
-            counter_timer = 0; // reset the timer-tracking variable
+            reset_timer();
             x = 0;             // reset the auxiliary variable
 
             while (state == STATE_7) {
