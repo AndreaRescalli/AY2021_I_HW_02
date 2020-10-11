@@ -30,11 +30,6 @@
 /* 
  * RGB is in common anode, and to switch a channel of the RGB ON we have to set the
  * corresponding PIN to 0!
- * THIS IS AN ASSUMPTION, THE OPPOSITE BEHAVIOUR CAN BE OBTAINED BY SIMPLY SETTING
- * ON HIGH AND OFF LOW (from the instructions it was not clear if it was requested the
- * respective LED to be ON when the signal was HIGH - and I opted for this hypothesis
- * or if the diagram showed the tension of the respective PINs, meaning that the LED
- * had to be OFF when the signal was HIGH)
  *
 */
 #define ON  LOW
